@@ -637,12 +637,13 @@ MulticopterPositionControl::update_takeoff_setpoint(const float &z_sp, const flo
 		_takeoff_speed += desired_tko_speed * _dt / _takeoff_ramp_time.get();
 		_takeoff_speed = math::min(_takeoff_speed, desired_tko_speed);
 
-		// Smooth takeoff is achieved once desired altitude/velocity setpoint is reached.
-		if (PX4_ISFINITE(z_sp)) {
-			_in_smooth_takeoff = _states.position(2) + 0.2f > z_sp;
+		// smooth takeoff is finished once desired velocity is reached
+		_in_smooth_takeoff = _takeoff_speed < -vz_sp;
 
-		} else  {
-			_in_smooth_takeoff = _takeoff_speed < -vz_sp;
+		// if a valid position septoint is provided, then smooth takeoff
+		// is finished the latest when desired altitude is reached
+		if (PX4_ISFINITE(z_sp)) {
+			_in_smooth_takeoff = _states.position(2) + 0.2f > -2.0f;
 		}
 
 	} else {

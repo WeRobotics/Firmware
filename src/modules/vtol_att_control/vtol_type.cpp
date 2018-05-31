@@ -168,6 +168,19 @@ void VtolType::set_weather_vane_yaw_rate()
 }
 
 
+void VtolType::use_fw_control_surfaces()
+{
+	if(_airspeed->true_airspeed_m_s > 3){
+		PX4_WARN("airspeed larger than 3");
+	} else {
+		PX4_WARN("airspeed smaller than 3");
+
+	}
+	// check airspeed
+
+
+}
+
 
 
 void VtolType::update_mc_state()
@@ -211,6 +224,10 @@ void VtolType::update_mc_state()
 			wv_do_strategy();
 		}
 	}
+
+	// TODO: create flag in parameters for it
+	use_fw_control_surfaces();
+
 }
 
 void VtolType::wv_do_strategy()

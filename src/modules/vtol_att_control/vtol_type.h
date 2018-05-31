@@ -47,6 +47,7 @@
 #include <drivers/drv_hrt.h>
 #include <drivers/drv_pwm_output.h>
 
+
 struct Params {
 	int32_t idle_pwm_mc;			// pwm value for idle in mc mode
 	int32_t vtol_motor_count;		// number of motors
@@ -263,6 +264,13 @@ protected:
 	 * @brief      Set a yaw rate value for weather vaning based on the commanded roll angle.
 	 */
 	void set_weather_vane_yaw_rate();
+
+
+	/**
+	 * @brief      Use fixedwing control surfaces also in rotary wing mode. 
+	 */
+	void use_fw_control_surfaces(); 
+
 
 private:
 

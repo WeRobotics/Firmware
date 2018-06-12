@@ -402,6 +402,40 @@ PARAM_DEFINE_FLOAT(VT_WV_MAX_Y_RATE, 30.0f);
  * @value 2 Mixing according to windspeed
  * @group VTOL Attitude Control
  */
-PARAM_DEFINE_INT32(VT_MC_FW_CTRL_EN, 0);
+PARAM_DEFINE_INT32(VT_MC_FW_MIX_EN, 0);
+
+
+	float fw_mixing_airspeed_sat;
+	float fw_mixing_airspeed_min;
+
+/**
+ * Minimum fw mixing airspeed 
+ *
+ * Airspeed at which mixing of fw control in mc mode starts
+ *
+ * @unit m/s
+ * @min 0.00
+ * @max 30.00
+ * @increment 1
+ * @decimal 2
+ * @group VTOL Attitude Control
+ */
+PARAM_DEFINE_FLOAT(VT_MC_FW_MIX_MIN, 0.0f);
+
+/**
+ * Fw mixing saturation airspeed 
+ *
+ * Airspeed at which all the control is done with the fixed wing control surfaces
+ *
+ * @unit m/s
+ * @min 0.00
+ * @max 30.00
+ * @increment 1
+ * @decimal 2
+ * @group VTOL Attitude Control
+ */
+PARAM_DEFINE_FLOAT(VT_MC_FW_MIX_SAT, 10.0f);
+
+
 
 

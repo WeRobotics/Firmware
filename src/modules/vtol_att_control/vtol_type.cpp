@@ -259,7 +259,7 @@ void VtolType::update_mc_state()
 		}
 	}
 
-	// TODO: create flag in parameters for it
+	// TODO: in if/else like weathervane
 	use_fw_control_surfaces();
 
 }

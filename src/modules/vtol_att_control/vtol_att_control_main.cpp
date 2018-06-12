@@ -98,7 +98,9 @@ VtolAttitudeControl::VtolAttitudeControl()
     _params_handles.wv_min_roll = param_find("VT_WV_MIN_ROLL");
     _params_handles.wv_strategy = param_find("VT_WV_STRATEGY");
 
-	_params_handles.fw_mixing_strategy = param_find("VT_MC_FW_CTRL_EN");
+	_params_handles.fw_mixing_strategy = param_find("VT_MC_FW_MIX_EN");
+	_params_handles.fw_mixing_strategy = param_find("VT_MC_FW_MIX_MIN");
+	_params_handles.fw_mixing_strategy = param_find("VT_MC_FW_MIX_SAT");
 
 
 
@@ -516,10 +518,14 @@ VtolAttitudeControl::parameters_update()
     param_get(_params_handles.wv_min_roll, &v);
     _params.wv_min_roll = math::radians(v);
 
-    param_get(_params_handles.fw_mixing_strategy, &l);
-    _params.fw_mixing_strategy = l; 
+    // param_get(_params_handles.fw_mixing_strategy, &l);
+    // _params.fw_mixing_strategy = l; 
 
-    // param_get(_params_handles.fw_mixing_strategy, &_params.fw_mixing_strategy);//&_params.fw_mixing_strategy);
+    param_get(_params_handles.fw_mixing_strategy, &_params.fw_mixing_strategy);
+    param_get(_params_handles.fw_mixing_airspeed_min, &_params.fw_mixing_airspeed_min);
+    param_get(_params_handles.fw_mixing_airspeed_sat, &_params.fw_mixing_airspeed_sat);
+
+
     param_get(_params_handles.wv_gain, &_params.wv_gain);
     param_get(_params_handles.wv_strategy, &_params.wv_strategy);
 	param_get(_params_handles.front_trans_duration, &_params.front_trans_duration);

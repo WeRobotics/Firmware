@@ -69,6 +69,8 @@ struct Params {
 	float wv_min_roll;
 	int32_t wv_strategy;
 	int32_t fw_mixing_strategy;
+	float fw_mixing_airspeed_sat;
+	float fw_mixing_airspeed_min;
 	float front_trans_duration;
 	float back_trans_duration;
 	float transition_airspeed;

@@ -170,12 +170,37 @@ void VtolType::set_weather_vane_yaw_rate()
 
 void VtolType::use_fw_control_surfaces()
 {
+
+	/*
+	Possiblities: don't use fw control surfaces/ just add them to other one/ mix them according to wind speed. -> defined by strategy
+	Need parameter for how to mix them with speed. 
+	*/
+
+
+
+	switch (_params->fw_mixing_strategy) {
+	case 0:
+		PX4_WARN("case 0");
+
+		break;
+
+	case 1:
+		PX4_WARN("case 1");
+
 	
-	if (_params->fw_mixing_strategy < 0.5) { 
-		PX4_WARN("fw_control_surface support 0 (just adding control acitons)");
-	} else if (_params->fw_mixing_strategy >=0.5) {
-		PX4_WARN("fw_control_surface support 1 (mixing scaled with wind)");
+
+		break;
+	case 2:
+		PX4_WARN("case 2");
+	
+
+		break;
 	}
+
+	// if (_params->fw_mixing_strategy > FLT_EPSILON) { 
+	// 	_mc_roll_weight = _airspeed->true_airspeed_m_s; 
+
+	// }
 
 
 	// if(_airspeed->true_airspeed_m_s > 3){
@@ -184,6 +209,8 @@ void VtolType::use_fw_control_surfaces()
 	// 	PX4_WARN("airspeed smaller than 3");
 	// }
 	// check airspeed
+
+	// _mc_roll_weight = ...
 
 
 }

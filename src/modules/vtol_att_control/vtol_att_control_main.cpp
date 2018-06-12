@@ -516,8 +516,10 @@ VtolAttitudeControl::parameters_update()
     param_get(_params_handles.wv_min_roll, &v);
     _params.wv_min_roll = math::radians(v);
 
-    param_get(_params_handles.fw_mixing_strategy, &_params.fw_mixing_strategy);//&_params.fw_mixing_strategy);
-    
+    param_get(_params_handles.fw_mixing_strategy, &l);
+    _params.fw_mixing_strategy = l; 
+
+    // param_get(_params_handles.fw_mixing_strategy, &_params.fw_mixing_strategy);//&_params.fw_mixing_strategy);
     param_get(_params_handles.wv_gain, &_params.wv_gain);
     param_get(_params_handles.wv_strategy, &_params.wv_strategy);
 	param_get(_params_handles.front_trans_duration, &_params.front_trans_duration);

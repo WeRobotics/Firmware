@@ -397,12 +397,11 @@ PARAM_DEFINE_FLOAT(VT_WV_MAX_Y_RATE, 30.0f);
  *
  * 0 means just adding the fixed wing control to the multicopter control, 1 means scaling the mixing with the airspeed.
  *
- * @min 0.0
- * @max 1.0
- * @increment 1.0
- * @decimal 3
+ * @value 0 No Mixing
+ * @value 1 Simple adding
+ * @value 2 Mixing according to windspeed
  * @group VTOL Attitude Control
  */
-PARAM_DEFINE_FLOAT(VT_MC_FW_CTRL_EN, 0.0f);
+PARAM_DEFINE_INT32(VT_MC_FW_CTRL_EN, 0);
 
 

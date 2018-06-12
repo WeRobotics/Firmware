@@ -391,3 +391,18 @@ PARAM_DEFINE_FLOAT(VT_WV_GAIN, 1.0f);
  * @group VTOL Attitude Control
  */
 PARAM_DEFINE_FLOAT(VT_WV_MAX_Y_RATE, 30.0f);
+
+/**
+ * Mixing strategy for usage of fixed wing control surfaces.
+ *
+ * 0 means just adding the fixed wing control to the multicopter control, 1 means scaling the mixing with the airspeed.
+ *
+ * @min 0.0
+ * @max 1.0
+ * @increment 1.0
+ * @decimal 3
+ * @group VTOL Attitude Control
+ */
+PARAM_DEFINE_FLOAT(VT_MC_FW_CTRL_EN, 0.0f);
+
+

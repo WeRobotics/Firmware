@@ -395,6 +395,8 @@ void Standard::update_fw_state()
  */
 void Standard::fill_actuator_outputs()
 {
+	//_mc_roll_weight = 0.5; // TODO Ivo remove. 
+
 	// multirotor controls
 	_actuators_out_0->timestamp = hrt_absolute_time();
 	_actuators_out_0->timestamp_sample = _actuators_mc_in->timestamp_sample;
@@ -443,7 +445,9 @@ void Standard::fill_actuator_outputs()
 		} else {
 			// roll
 			_actuators_out_1->control[actuator_controls_s::INDEX_ROLL] =
-				-_actuators_fw_in->control[actuator_controls_s::INDEX_ROLL];
+				-_actuators_fw_in->control[actuator_controls_s::INDEX_ROLL];// * (1-_mc_roll_weight);
+
+			PX4_WARN("setting fw outputs");
 
 			// pitch
 			_actuators_out_1->control[actuator_controls_s::INDEX_PITCH] =

@@ -170,12 +170,19 @@ void VtolType::set_weather_vane_yaw_rate()
 
 void VtolType::use_fw_control_surfaces()
 {
-	if(_airspeed->true_airspeed_m_s > 3){
-		PX4_WARN("airspeed larger than 3");
-	} else {
-		PX4_WARN("airspeed smaller than 3");
-
+	
+	if (_params->fw_mixing_strategy < 0.5) { 
+		PX4_WARN("fw_control_surface support 0 (just adding control acitons)");
+	} else if (_params->fw_mixing_strategy >=0.5) {
+		PX4_WARN("fw_control_surface support 1 (mixing scaled with wind)");
 	}
+
+
+	// if(_airspeed->true_airspeed_m_s > 3){
+	// 	PX4_WARN("airspeed larger than 3");
+	// } else {
+	// 	PX4_WARN("airspeed smaller than 3");
+	// }
 	// check airspeed
 
 

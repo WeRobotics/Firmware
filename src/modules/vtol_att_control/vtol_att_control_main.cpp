@@ -99,8 +99,8 @@ VtolAttitudeControl::VtolAttitudeControl()
     _params_handles.wv_strategy = param_find("VT_WV_STRATEGY");
 
 	_params_handles.fw_mixing_strategy = param_find("VT_MC_FW_MIX_EN");
-	_params_handles.fw_mixing_strategy = param_find("VT_MC_FW_MIX_MIN");
-	_params_handles.fw_mixing_strategy = param_find("VT_MC_FW_MIX_SAT");
+	_params_handles.fw_mixing_airspeed_min = param_find("VT_MC_FW_MIX_MIN");
+	_params_handles.fw_mixing_airspeed_sat = param_find("VT_MC_FW_MIX_SAT");
 
 
 

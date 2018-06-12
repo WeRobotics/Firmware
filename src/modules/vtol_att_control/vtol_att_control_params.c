@@ -395,18 +395,13 @@ PARAM_DEFINE_FLOAT(VT_WV_MAX_Y_RATE, 30.0f);
 /**
  * Mixing strategy for usage of fixed wing control surfaces.
  *
- * 0 means just adding the fixed wing control to the multicopter control, 1 means scaling the mixing with the airspeed.
+ * 0 means just adding the fixed wing control to the multicopter control, 1 means scaling the mixing with the airspeed, elevons_mc_lock needs to be 0.
  *
- * @value 0 No Mixing
- * @value 1 Simple adding
- * @value 2 Mixing according to windspeed
+ * @value 0 Simple adding
+ * @value 1 Mixing according to windspeed
  * @group VTOL Attitude Control
  */
 PARAM_DEFINE_INT32(VT_MC_FW_MIX_EN, 0);
-
-
-	float fw_mixing_airspeed_sat;
-	float fw_mixing_airspeed_min;
 
 /**
  * Minimum fw mixing airspeed 

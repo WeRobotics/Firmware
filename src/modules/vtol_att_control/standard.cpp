@@ -445,13 +445,11 @@ void Standard::fill_actuator_outputs()
 		} else {
 			// roll
 			_actuators_out_1->control[actuator_controls_s::INDEX_ROLL] =
-				-_actuators_fw_in->control[actuator_controls_s::INDEX_ROLL];// * (1-_mc_roll_weight);
-
-			PX4_WARN("setting fw outputs");
+				-_actuators_fw_in->control[actuator_controls_s::INDEX_ROLL] * _fw_roll_weight;
 
 			// pitch
 			_actuators_out_1->control[actuator_controls_s::INDEX_PITCH] =
-				_actuators_fw_in->control[actuator_controls_s::INDEX_PITCH];
+				_actuators_fw_in->control[actuator_controls_s::INDEX_PITCH] * _fw_pitch_weight;
 
 			_actuators_out_1->control[actuator_controls_s::INDEX_YAW] = 0.0f;
 			_actuators_out_1->control[actuator_controls_s::INDEX_AIRBRAKES] = 0.0f;

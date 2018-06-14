@@ -2197,6 +2197,7 @@ Mavlink::task_main(int argc, char *argv[])
 			set_manual_input_mode_generation(status.rc_input_mode == vehicle_status_s::RC_IN_MODE_GENERATED);
 		}
 
+/*
 		struct vehicle_command_s vehicle_cmd;
 
 		if (cmd_sub->update(&cmd_time, &vehicle_cmd)) {
@@ -2220,6 +2221,7 @@ Mavlink::task_main(int argc, char *argv[])
 				}
 			}
 		}
+*/
 
 		/* send command ACK */
 		uint16_t current_command_ack = 0;

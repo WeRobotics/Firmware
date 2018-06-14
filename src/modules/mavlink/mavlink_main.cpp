@@ -1959,7 +1959,7 @@ Mavlink::task_main(int argc, char *argv[])
 	mavlink_update_system();
 
 	MavlinkOrbSubscription *cmd_sub = add_orb_subscription(ORB_ID(vehicle_command));
-	uint64_t cmd_time = 0;
+	//uint64_t cmd_time = 0;
 	MavlinkOrbSubscription *param_sub = add_orb_subscription(ORB_ID(parameter_update));
 	uint64_t param_time = 0;
 	MavlinkOrbSubscription *status_sub = add_orb_subscription(ORB_ID(vehicle_status));

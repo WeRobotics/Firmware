@@ -451,7 +451,8 @@ void Standard::fill_actuator_outputs()
 			_actuators_out_1->control[actuator_controls_s::INDEX_PITCH] =
 				_actuators_fw_in->control[actuator_controls_s::INDEX_PITCH] * _fw_pitch_weight;
 
-			_actuators_out_1->control[actuator_controls_s::INDEX_YAW] = _actuators_fw_in->control[actuator_controls_s::INDEX_YAW] * _fw_yaw_weight;
+			_actuators_out_1->control[actuator_controls_s::INDEX_YAW] = _actuators_fw_in->control[actuator_controls_s::INDEX_YAW] *
+					_fw_yaw_weight;
 
 			_actuators_out_1->control[actuator_controls_s::INDEX_AIRBRAKES] = 0.0f;
 		}

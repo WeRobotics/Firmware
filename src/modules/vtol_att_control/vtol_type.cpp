@@ -176,8 +176,12 @@ void VtolType::use_fw_control_surfaces()
 	case 0:
 		_mc_roll_weight = 1;
 		_mc_pitch_weight = 1;
+		_mc_yaw_weight = 1;
+
 		_fw_roll_weight = 1;
 		_fw_pitch_weight = 1;
+		_fw_yaw_weight = 1;
+
 		break;
 
 	// Mix multicopter and fixed wing control action according to airspeed (ramp up quadratically starting at fw_mixing_airspeed_min until fw_mixing_airspeed_sat)
@@ -193,11 +197,13 @@ void VtolType::use_fw_control_surfaces()
 						   2) / std::pow(_params->fw_mixing_airspeed_sat - _params->fw_mixing_airspeed_min, 2);
 			_fw_roll_weight = math::constrain(_fw_roll_weight, 0.0f, 1.0f);
 			_fw_pitch_weight = _fw_roll_weight;
-		}
+			_fw_yaw_weight = _fw_roll_weight;
 
+		}
 
 		_mc_roll_weight = 1 - _fw_roll_weight;
 		_mc_pitch_weight = 1 - _fw_pitch_weight;
+		_mc_yaw_weight = 1 - _fw_yaw_weight;
 		break;
 	}
 
@@ -253,7 +259,7 @@ void VtolType::update_mc_state()
 	if (_v_control_mode->flag_control_manual_enabled) {
 
 		if (_v_control_mode->flag_control_velocity_enabled) {
-		// Use control surfaces only if elevon lock is disabled
+			// Use control surfaces only if elevon lock is disabled
 			if (_params->elevons_mc_lock == 0) {
 				use_fw_control_surfaces();
 			}

@@ -213,6 +213,7 @@ protected:
 
 	float _fw_roll_weight = 0.0f;	// weight for multicopter attitude controller roll output
 	float _fw_pitch_weight = 0.0f;	// weight for multicopter attitude controller pitch output
+	float _fw_yaw_weight = 0.0f;	// weight for multicopter attitude controller pitch output
 
 	// motors spinning up or cutting too fast when doing transitions.
 	float _thrust_transition = 0.0f;	// thrust value applied during a front transition (tailsitter & tiltrotor only)

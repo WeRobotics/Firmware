@@ -249,22 +249,22 @@ void VtolType::update_mc_state()
 		}
 	}
 
-	// TODO: in if/else like weathervane
+	// Use fw control surfaces in manual and auto mode (not in stabilized, altitude etc)
+	if (_v_control_mode->flag_control_manual_enabled) {
 
-	// Use control surfaces only if elevon lock is disabled
-	if (_params->elevons_mc_lock == 0) {
-		use_fw_control_surfaces();
+		if (_v_control_mode->flag_control_velocity_enabled) {
+		// Use control surfaces only if elevon lock is disabled
+			if (_params->elevons_mc_lock == 0) {
+				use_fw_control_surfaces();
+			}
+		}
+
+	} else if (_attc->get_pos_sp_triplet()->current.valid) {
+		// Use control surfaces only if elevon lock is disabled
+		if (_params->elevons_mc_lock == 0) {
+			use_fw_control_surfaces();
+		}
 	}
-
-	// if (_fw_roll_weight>0.5){
-	// 	PX4_WARN("roll weight larger than 0.5");
-	// } else{
-	// 	PX4_WARN("roll weight smaller than 0.5");
-
-	// }
-
-
-
 }
 
 void VtolType::wv_do_strategy()

@@ -395,7 +395,7 @@ void Standard::update_fw_state()
  */
 void Standard::fill_actuator_outputs()
 {
-	//_mc_roll_weight = 0.5; // TODO Ivo remove. 
+	//_mc_roll_weight = 0.5; // TODO Ivo remove.
 
 	// multirotor controls
 	_actuators_out_0->timestamp = hrt_absolute_time();

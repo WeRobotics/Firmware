@@ -404,7 +404,7 @@ PARAM_DEFINE_FLOAT(VT_WV_MAX_Y_RATE, 30.0f);
 PARAM_DEFINE_INT32(VT_MC_FW_MIX_STR, 0);
 
 /**
- * Minimum fw mixing airspeed 
+ * Minimum fw mixing airspeed
  *
  * Airspeed at which mixing of fw control in mc mode starts
  * @unit m/s
@@ -417,7 +417,7 @@ PARAM_DEFINE_INT32(VT_MC_FW_MIX_STR, 0);
 PARAM_DEFINE_FLOAT(VT_MC_FW_MIX_MIN, 0.0f);
 
 /**
- * Fw mixing saturation airspeed 
+ * Fw mixing saturation airspeed
  *
  * Airspeed at which all the control is done with the fixed wing control surfaces
  * @unit m/s

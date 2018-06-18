@@ -174,27 +174,29 @@ void VtolType::use_fw_control_surfaces()
 	switch (_params->fw_mixing_strategy) {
 	// Just add multicopter and fixed wing control action
 	case 0:
-		_mc_roll_weight = 1; 
-		_mc_pitch_weight = 1; 
-		_fw_roll_weight = 1; 
-		_fw_pitch_weight = 1; 
+		_mc_roll_weight = 1;
+		_mc_pitch_weight = 1;
+		_fw_roll_weight = 1;
+		_fw_pitch_weight = 1;
 		break;
 
 	// Mix multicopter and fixed wing control action according to airspeed (ramp up quadratically starting at fw_mixing_airspeed_min until fw_mixing_airspeed_sat)
 	case 1:
-		_mc_roll_weight = 1; 
-		_mc_pitch_weight = 1; 
-		_fw_roll_weight = 0; 
-		_fw_pitch_weight = 0; 
+		_mc_roll_weight = 1;
+		_mc_pitch_weight = 1;
+		_fw_roll_weight = 0;
+		_fw_pitch_weight = 0;
 		float airspeed = _airspeed->true_airspeed_m_s;
-		if (airspeed - _params->fw_mixing_airspeed_min > 0 ){
-			_fw_roll_weight = std::pow(airspeed - _params->fw_mixing_airspeed_min , 2) / std::pow(_params->fw_mixing_airspeed_sat - _params->fw_mixing_airspeed_min, 2);
+
+		if (airspeed - _params->fw_mixing_airspeed_min > 0) {
+			_fw_roll_weight = std::pow(airspeed - _params->fw_mixing_airspeed_min,
+						   2) / std::pow(_params->fw_mixing_airspeed_sat - _params->fw_mixing_airspeed_min, 2);
 			_fw_roll_weight = math::constrain(_fw_roll_weight, 0.0f, 1.0f);
-			_fw_pitch_weight = _fw_roll_weight; 
+			_fw_pitch_weight = _fw_roll_weight;
 		}
 
 
-		_mc_roll_weight = 1 - _fw_roll_weight; 
+		_mc_roll_weight = 1 - _fw_roll_weight;
 		_mc_pitch_weight = 1 - _fw_pitch_weight;
 		break;
 	}
@@ -221,19 +223,21 @@ void VtolType::update_mc_state()
 	_mc_yaw_weight = 1.0f;
 
 
-	// VTOL weathervane	
+	// VTOL weathervane
 	if (_v_control_mode->flag_control_manual_enabled) {
 
 		if (_params->wv_manual && _v_control_mode->flag_control_velocity_enabled) {
 			wv_do_strategy();
 
 		}
+
 	} else if (_attc->get_pos_sp_triplet()->current.valid) {
 
 		if (_params->wv_auto) {
 			wv_do_strategy();
 
-		} else if (_params->wv_takeoff && _attc->get_pos_sp_triplet()->current.type == position_setpoint_s::SETPOINT_TYPE_TAKEOFF) {
+		} else if (_params->wv_takeoff
+			   && _attc->get_pos_sp_triplet()->current.type == position_setpoint_s::SETPOINT_TYPE_TAKEOFF) {
 			wv_do_strategy();
 
 		} else if (_params->wv_loiter
@@ -269,8 +273,8 @@ void VtolType::wv_do_strategy()
 
 	if (_params->wv_strategy) {
 		_v_att_sp->disable_mc_yaw_control = true;
-	}
-	else {
+
+	} else {
 		set_weather_vane_yaw_rate();
 	}
 }

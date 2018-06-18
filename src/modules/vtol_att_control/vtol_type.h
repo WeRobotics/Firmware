@@ -274,9 +274,9 @@ protected:
 
 
 	/**
-	 * @brief      Use fixedwing control surfaces also in rotary wing mode. 
+	 * @brief      Use fixedwing control surfaces also in rotary wing mode.
 	 */
-	void use_fw_control_surfaces(); 
+	void use_fw_control_surfaces();
 
 
 private:

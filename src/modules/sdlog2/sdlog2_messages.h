@@ -284,7 +284,8 @@ struct log_GVSP_s {
 };
 
 /* --- BATT - BATTERY --- */
-#define LOG_BATT_MSG 20
+#define LOG_BATT1_MSG 20
+#define LOG_BATT2_MSG 59
 struct log_BATT_s {
 	float voltage;
 	float voltage_filtered;

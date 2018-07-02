@@ -1178,7 +1178,7 @@ int sdlog2_thread_main(int argc, char *argv[])
 		struct differential_pressure_s diff_pres;
 		struct airspeed_s airspeed;
 		struct esc_status_s esc;
-		struct battery_status_s battery;
+		struct battery_status_s battery[2];
 		struct telemetry_status_s telemetry;
 		struct distance_sensor_s distance_sensor;
 		struct estimator_status_s estimator_status;
@@ -1284,7 +1284,7 @@ int sdlog2_thread_main(int argc, char *argv[])
 		int rc_sub;
 		int airspeed_sub;
 		int esc_sub;
-		int battery_sub;
+		int battery_sub[2];
 		int telemetry_subs[ORB_MULTI_MAX_INSTANCES];
 		int distance_sensor_sub;
 		int estimator_status_sub;
@@ -1327,7 +1327,8 @@ int sdlog2_thread_main(int argc, char *argv[])
 	subs.rc_sub = -1;
 	subs.airspeed_sub = -1;
 	subs.esc_sub = -1;
-	subs.battery_sub = -1;
+	subs.battery_sub[0] = -1;
+	subs.battery_sub[1] = -1;
 	subs.distance_sensor_sub = -1;
 	subs.estimator_status_sub = -1;
 	subs.tecs_status_sub = -1;
@@ -1783,9 +1784,23 @@ int sdlog2_thread_main(int argc, char *argv[])
 				LOGBUFFER_WRITE_AND_COUNT(GPOS);
 			}
 
-			/* --- BATTERY --- */
-			if (copy_if_updated(ORB_ID(battery_status), &subs.battery_sub, &buf.battery)) {
-				log_msg.msg_type = LOG_BATT_MSG;
+			/* --- BATTERY - UNIT #1 --- */
+			if (copy_if_updated_multi(ORB_ID(battery_status), 0, &subs.battery_sub[0], &buf.battery[0])) {
+				log_msg.msg_type = LOG_BATT1_MSG;
+				log_msg.body.log_BATT.voltage = buf.battery.voltage_v;
+				log_msg.body.log_BATT.voltage_filtered = buf.battery.voltage_filtered_v;
+				log_msg.body.log_BATT.current = buf.battery.current_a;
+				log_msg.body.log_BATT.current_filtered = buf.battery.current_filtered_a;
+				log_msg.body.log_BATT.discharged = buf.battery.discharged_mah;
+				log_msg.body.log_BATT.remaining = buf.battery.remaining;
+				log_msg.body.log_BATT.scale = buf.battery.scale;
+				log_msg.body.log_BATT.warning = buf.battery.warning;
+				LOGBUFFER_WRITE_AND_COUNT(BATT);
+			}
+
+			/* --- BATTERY - UNIT #2 --- */
+			if (copy_if_updated_multi(ORB_ID(battery_status), 1, &subs.battery_sub[1], &buf.battery[1])) {
+				log_msg.msg_type = LOG_BATT2_MSG;
 				log_msg.body.log_BATT.voltage = buf.battery.voltage_v;
 				log_msg.body.log_BATT.voltage_filtered = buf.battery.voltage_filtered_v;
 				log_msg.body.log_BATT.current = buf.battery.current_a;

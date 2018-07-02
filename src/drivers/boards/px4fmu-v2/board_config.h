@@ -359,6 +359,10 @@
 #define ADC_CHANNELS (1 << 2) | (1 << 3) | (1 << 4) | (1 << 10) | (1 << 11) | (1 << 12) | (1 << 13) | (1 << 14) | (1 << 15)
 
 // ADC defines to be used in sensors.cpp to read from a particular channel
+#define ADC_BATTERY1_VOLTAGE_CHANNEL 2
+#define ADC_BATTERY1_CURRENT_CHANNEL 3
+#define ADC_BATTERY2_VOLTAGE_CHANNEL 13
+#define ADC_BATTERY2_CURRENT_CHANNEL 14
 #define ADC_BATTERY_VOLTAGE_CHANNEL	2
 #define ADC_BATTERY_CURRENT_CHANNEL	3
 #define ADC_5V_RAIL_SENSE		4
@@ -395,6 +399,13 @@
 #define GPIO_VDD_3V3_SENSORS_EN	(GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_SET|GPIO_PORTE|GPIO_PIN3)
 #define GPIO_VDD_5V_HIPOWER_OC	(GPIO_INPUT|GPIO_PULLUP|GPIO_PORTE|GPIO_PIN10)
 #define GPIO_VDD_5V_PERIPH_OC	(GPIO_INPUT|GPIO_PULLUP|GPIO_PORTE|GPIO_PIN15)
+
+#define GPIO_nVDD_BRICK1_VALID          GPIO_VDD_BRICK_VALID /* Brick 1 Is Chosen */
+#define GPIO_nVDD_BRICK2_VALID          GPIO_VDD_SERVO_VALID /* Brick 2 Is Chosen  */
+#define BOARD_NUMBER_BRICKS             2
+
+#define BOARD_ADC_BRICK1_VALID  (!px4_arch_gpioread(GPIO_nVDD_BRICK1_VALID))
+#define BOARD_ADC_BRICK2_VALID  (!px4_arch_gpioread(GPIO_nVDD_BRICK2_VALID))
 
 /* Tone alarm output */
 #define TONE_ALARM_TIMER	2	/* timer 2 */

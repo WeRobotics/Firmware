@@ -76,7 +76,7 @@ Standard::Standard(VtolAttitudeControl *attc) :
 
 	pub_dbg = orb_advertise(ORB_ID(debug_key_value), &dbg);
 
-    strcpy(dbg.key, "AUX1");
+	strcpy(dbg.key, "AUX1");
 
 
 }
@@ -456,15 +456,17 @@ void Standard::fill_actuator_outputs()
 
 	PX4_WARN(buffer);
 
-	if (_manual_control_sp.aux1>0.4f||_manual_control_sp.aux2>0.4f || _manual_control_sp.aux3>0.4f){
+	if (_manual_control_sp.aux1 > 0.4f || _manual_control_sp.aux2 > 0.4f || _manual_control_sp.aux3 > 0.4f) {
 		PX4_WARN("AUXX larger 0.4");
-	} else{
+
+	} else {
 		PX4_WARN("AUX1 smaller 0.4");
 	}
 
-	if (_manual_control_sp.aux1>0.04f||_manual_control_sp.aux2>0.04f || _manual_control_sp.aux3>0.04f){
+	if (_manual_control_sp.aux1 > 0.04f || _manual_control_sp.aux2 > 0.04f || _manual_control_sp.aux3 > 0.04f) {
 		PX4_WARN("AUXX larger 0.04");
-	} else{
+
+	} else {
 		PX4_WARN("AUX1 smaller 0.04");
 	}
 

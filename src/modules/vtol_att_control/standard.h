@@ -49,6 +49,10 @@
 #include <parameters/param.h>
 #include <drivers/drv_hrt.h>
 
+// development
+#include <uORB/uORB.h>
+#include <uORB/topics/debug_key_value.h>
+
 class Standard : public VtolType
 {
 
@@ -103,5 +107,9 @@ private:
 	float _airspeed_trans_blend_margin;
 
 	virtual void parameters_update();
+	struct debug_key_value_s dbg;
+
+	orb_advert_t pub_dbg;
+
 };
 #endif

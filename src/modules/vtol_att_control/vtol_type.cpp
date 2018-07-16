@@ -74,6 +74,10 @@ VtolType::VtolType(VtolAttitudeControl *att_controller) :
 	for (auto &pwm_disarmed : _disarmed_pwm_values.values) {
 		pwm_disarmed = PWM_MOTOR_OFF;
 	}
+
+	_manual_control_sp_sub = orb_subscribe(ORB_ID(manual_control_setpoint));
+
+
 }
 
 VtolType::~VtolType() = default;
@@ -456,4 +460,20 @@ bool VtolType::is_motor_off_channel(const int channel)
 	}
 
 	return (channel_bitmap >> channel) & 1;
+}
+
+
+/**
+* Check for changes in manual inputs.
+*/
+void VtolType::vehicle_manual_poll()
+{
+	bool updated;
+
+	/* get pilots inputs */
+	orb_check(_manual_control_sp_sub, &updated);
+
+	if (updated) {
+		orb_copy(ORB_ID(manual_control_setpoint), _manual_control_sp_sub, &_manual_control_sp);
+	}
 }

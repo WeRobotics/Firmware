@@ -47,6 +47,9 @@
 #include <drivers/drv_hrt.h>
 #include <drivers/drv_pwm_output.h>
 
+#include <uORB/topics/manual_control_setpoint.h>
+
+
 struct Params {
 	int32_t idle_pwm_mc;			// pwm value for idle in mc mode
 	int32_t vtol_motor_count;		// number of motors
@@ -195,6 +198,11 @@ protected:
 	struct airspeed_s 				*_airspeed;					// airspeed
 	struct tecs_status_s				*_tecs_status;
 	struct vehicle_land_detected_s			*_land_detected;
+
+	int	_manual_control_sp_sub{-1};	//manual control setpoint subscription
+	manual_control_setpoint_s		_manual_control_sp{}; //manual control setpoint
+	void		vehicle_manual_poll();			//Check for changes in manual inputs.
+
 
 	struct Params 					*_params;
 

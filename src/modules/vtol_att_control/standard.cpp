@@ -46,6 +46,10 @@
 
 #include <float.h>
 
+#include <string>
+
+
+
 Standard::Standard(VtolAttitudeControl *attc) :
 	VtolType(attc),
 	_pusher_throttle(0.0f),
@@ -68,6 +72,13 @@ Standard::Standard(VtolAttitudeControl *attc) :
 	_params_handles_standard.pitch_setpoint_offset = param_find("FW_PSP_OFF");
 	_params_handles_standard.reverse_output = param_find("VT_B_REV_OUT");
 	_params_handles_standard.reverse_delay = param_find("VT_B_REV_DEL");
+
+
+	pub_dbg = orb_advertise(ORB_ID(debug_key_value), &dbg);
+
+    strcpy(dbg.key, "AUX1");
+
+
 }
 
 Standard::~Standard() = default;
@@ -412,6 +423,58 @@ void Standard::fill_actuator_outputs()
 	_actuators_out_0->control[actuator_controls_s::INDEX_THROTTLE] =
 		_actuators_mc_in->control[actuator_controls_s::INDEX_THROTTLE] * _mc_throttle_weight;
 
+// TODO IVO: do this only depening on aux3
+	// if (_vtol_schedule.flight_mode != MC_MODE) { // if we are in FW mode, add whatever signal is on aux 1 to the propeller output.
+	// _actuators_out_0->control[actuator_controls_s::INDEX_THROTTLE] =
+	// 	_actuators_mc_in->control[actuator_controls_s::INDEX_THROTTLE] * _mc_throttle_weight + _actuators_out_1->control[5];
+
+	// }
+
+	// dbg.key = "AUX1"
+
+
+	vehicle_manual_poll();
+
+	float prop_support = _manual_control_sp.aux2;
+	dbg.value = prop_support;//_actuators_out_1->control[5];
+
+
+	if (pub_dbg != nullptr) {
+		/* publish the attitude setpoint */
+		orb_publish(ORB_ID(debug_key_value), pub_dbg, &dbg);
+
+	} else {
+		/* advertise and publish */
+		pub_dbg = orb_advertise(ORB_ID(debug_key_value), &dbg);
+	}
+
+
+	// PX4_WARN("filling actuator inputs");
+	char buffer[32];
+
+	sprintf(buffer, "AUX = %f", _manual_control_sp.aux1);
+
+	PX4_WARN(buffer);
+
+	if (_manual_control_sp.aux1>0.4f||_manual_control_sp.aux2>0.4f || _manual_control_sp.aux3>0.4f){
+		PX4_WARN("AUXX larger 0.4");
+	} else{
+		PX4_WARN("AUX1 smaller 0.4");
+	}
+
+	if (_manual_control_sp.aux1>0.04f||_manual_control_sp.aux2>0.04f || _manual_control_sp.aux3>0.04f){
+		PX4_WARN("AUXX larger 0.04");
+	} else{
+		PX4_WARN("AUX1 smaller 0.04");
+	}
+
+
+	// if (_manual_control_sp.aux1>0.f){
+	// 	PX4_WARN("AUX3 larger 0.4");
+	// } else{
+	// 	PX4_WARN("AUX3 smaller 0.4");
+
+	// }
 
 	// fixed wing controls
 	_actuators_out_1->timestamp = hrt_absolute_time();

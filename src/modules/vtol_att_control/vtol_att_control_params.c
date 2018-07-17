@@ -392,20 +392,25 @@ PARAM_DEFINE_FLOAT(VT_WV_GAIN, 1.0f);
  */
 PARAM_DEFINE_FLOAT(VT_WV_MAX_Y_RATE, 30.0f);
 
+
 /**
  * Enabling FW prop support
  *
- * @boolean
+ * Enabling FW prop support
+ *
+ * @min 0.0
+ * @max 1.0
+ * @increment 1
+ * @decimal 3
  * @group VTOL Attitude Control
  */
-PARAM_DEFINE_INT32(VT_PS_ON, 0);
-
+PARAM_DEFINE_FLOAT(VT_PS_ON, 0.0f);
 
 
 /**
  * FW Prop support.
  *
- * The desired amout of support by MC propellers in FW mode.
+ * The desired amount of support by MC propellers in FW mode.
  *
  * @min 0.0
  * @max 1.0

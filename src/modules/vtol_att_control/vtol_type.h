@@ -70,7 +70,7 @@ struct Params {
 	float wv_gain;
 	float wv_min_roll;
 	int32_t wv_strategy;
-	bool fw_prop_support_on;
+	float fw_prop_support_on;
 	float fw_prop_support_gain;
 	float front_trans_duration;
 	float back_trans_duration;

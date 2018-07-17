@@ -424,10 +424,11 @@ void Standard::fill_actuator_outputs()
 		_actuators_mc_in->control[actuator_controls_s::INDEX_THROTTLE] * _mc_throttle_weight;
 
 // TODO IVO: do this only depening on aux3
-	if (_vtol_schedule.flight_mode != MC_MODE) { // if we are in FW mode, add whatever signal is on aux 1 to the propeller output.
-		if(_params->fw_prop_support_on) {
+	if (_vtol_schedule.flight_mode !=
+	    MC_MODE) { // if we are in FW mode, add whatever signal is on aux 1 to the propeller output.
+		if (_params->fw_prop_support_on > FLT_EPSILON) {
 			_actuators_out_0->control[actuator_controls_s::INDEX_THROTTLE] =
-			_actuators_mc_in->control[actuator_controls_s::INDEX_THROTTLE] * _mc_throttle_weight + _params->fw_prop_support_gain;
+				_actuators_mc_in->control[actuator_controls_s::INDEX_THROTTLE] * _mc_throttle_weight + _params->fw_prop_support_gain;
 			PX4_WARN("set FW prop support");
 
 		}
@@ -454,7 +455,7 @@ void Standard::fill_actuator_outputs()
 	// PX4_WARN("filling actuator inputs");
 	char buffer[32];
 
-	sprintf(buffer, "support gain = %f", _params->fw_prop_support_gain);
+	sprintf(buffer, "on = %f, gain = %f", (double)_params->fw_prop_support_on, (double)_params->fw_prop_support_gain * 100);
 	PX4_WARN(buffer);
 
 	// if (_manual_control_sp.aux1 > 0.4f || _manual_control_sp.aux2 > 0.4f || _manual_control_sp.aux3 > 0.4f) {

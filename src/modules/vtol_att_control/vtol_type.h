@@ -70,6 +70,8 @@ struct Params {
 	float wv_gain;
 	float wv_min_roll;
 	int32_t wv_strategy;
+	bool fw_prop_support_on;
+	float fw_prop_support_gain;
 	float front_trans_duration;
 	float back_trans_duration;
 	float transition_airspeed;
@@ -200,7 +202,7 @@ protected:
 	struct vehicle_land_detected_s			*_land_detected;
 
 	int	_manual_control_sp_sub{-1};	//manual control setpoint subscription
-	manual_control_setpoint_s		_manual_control_sp{}; //manual control setpoint
+	manual_control_setpoint_s _manual_control_sp{}; //manual control setpoint
 	void		vehicle_manual_poll();			//Check for changes in manual inputs.
 
 

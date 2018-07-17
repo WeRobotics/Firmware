@@ -424,51 +424,52 @@ void Standard::fill_actuator_outputs()
 		_actuators_mc_in->control[actuator_controls_s::INDEX_THROTTLE] * _mc_throttle_weight;
 
 // TODO IVO: do this only depening on aux3
-	// if (_vtol_schedule.flight_mode != MC_MODE) { // if we are in FW mode, add whatever signal is on aux 1 to the propeller output.
-	// _actuators_out_0->control[actuator_controls_s::INDEX_THROTTLE] =
-	// 	_actuators_mc_in->control[actuator_controls_s::INDEX_THROTTLE] * _mc_throttle_weight + _actuators_out_1->control[5];
+	if (_vtol_schedule.flight_mode != MC_MODE) { // if we are in FW mode, add whatever signal is on aux 1 to the propeller output.
+		if(_params->fw_prop_support_on) {
+			_actuators_out_0->control[actuator_controls_s::INDEX_THROTTLE] =
+			_actuators_mc_in->control[actuator_controls_s::INDEX_THROTTLE] * _mc_throttle_weight + _params->fw_prop_support_gain;
+			PX4_WARN("set FW prop support");
 
-	// }
+		}
 
-	// dbg.key = "AUX1"
-
-
-	vehicle_manual_poll();
-
-	float prop_support = _manual_control_sp.aux2;
-	dbg.value = prop_support;//_actuators_out_1->control[5];
-
-
-	if (pub_dbg != nullptr) {
-		/* publish the attitude setpoint */
-		orb_publish(ORB_ID(debug_key_value), pub_dbg, &dbg);
-
-	} else {
-		/* advertise and publish */
-		pub_dbg = orb_advertise(ORB_ID(debug_key_value), &dbg);
 	}
+
+	// dbg.key = "AUX1";
+
+	// vehicle_manual_poll();
+
+	// float prop_support = _manual_control_sp.aux2;
+	// dbg.value = prop_support;//_actuators_out_1->control[5];
+
+	// if (pub_dbg != nullptr) {
+	// 	/* publish the attitude setpoint */
+	// 	orb_publish(ORB_ID(debug_key_value), pub_dbg, &dbg);
+
+	// } else {
+	// 	/* advertise and publish */
+	// 	pub_dbg = orb_advertise(ORB_ID(debug_key_value), &dbg);
+	// }
 
 
 	// PX4_WARN("filling actuator inputs");
 	char buffer[32];
 
-	sprintf(buffer, "AUX = %f", _manual_control_sp.aux1);
-
+	sprintf(buffer, "support gain = %f", _params->fw_prop_support_gain);
 	PX4_WARN(buffer);
 
-	if (_manual_control_sp.aux1 > 0.4f || _manual_control_sp.aux2 > 0.4f || _manual_control_sp.aux3 > 0.4f) {
-		PX4_WARN("AUXX larger 0.4");
+	// if (_manual_control_sp.aux1 > 0.4f || _manual_control_sp.aux2 > 0.4f || _manual_control_sp.aux3 > 0.4f) {
+	// 	PX4_WARN("AUXX larger 0.4");
 
-	} else {
-		PX4_WARN("AUX1 smaller 0.4");
-	}
+	// } else {
+	// 	PX4_WARN("AUX1 smaller 0.4");
+	// }
 
-	if (_manual_control_sp.aux1 > 0.04f || _manual_control_sp.aux2 > 0.04f || _manual_control_sp.aux3 > 0.04f) {
-		PX4_WARN("AUXX larger 0.04");
+	// if (_manual_control_sp.aux1 > 0.04f || _manual_control_sp.aux2 > 0.04f || _manual_control_sp.aux3 > 0.04f) {
+	// 	PX4_WARN("AUXX larger 0.04");
 
-	} else {
-		PX4_WARN("AUX1 smaller 0.04");
-	}
+	// } else {
+	// 	PX4_WARN("AUX1 smaller 0.04");
+	// }
 
 
 	// if (_manual_control_sp.aux1>0.f){

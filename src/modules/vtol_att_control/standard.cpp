@@ -431,7 +431,7 @@ void Standard::fill_actuator_outputs()
 		if (_params->fw_prop_support_on > FLT_EPSILON) {
 			_actuators_out_0->control[actuator_controls_s::INDEX_THROTTLE] =
 				_actuators_mc_in->control[actuator_controls_s::INDEX_THROTTLE] * _mc_throttle_weight + _params->fw_prop_support_gain;
-			PX4_WARN("set FW prop support");
+			// PX4_WARN("set FW prop support");
 
 		}
 	}

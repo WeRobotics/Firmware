@@ -46,9 +46,6 @@
 
 #include <float.h>
 
-#include <string>
-
-
 
 Standard::Standard(VtolAttitudeControl *attc) :
 	VtolType(attc),

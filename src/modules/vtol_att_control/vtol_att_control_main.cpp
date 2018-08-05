@@ -99,7 +99,10 @@ VtolAttitudeControl::VtolAttitudeControl()
 	_params_handles.wv_strategy = param_find("VT_WV_STRATEGY");
 
 	_params_handles.fw_prop_support_on = param_find("VT_PS_ON");
-	_params_handles.fw_prop_support_gain = param_find("VT_PS_GAIN");
+	_params_handles.fw_prop_support_throttle = param_find("VT_PS_THR");
+
+	_params_handles.fw_prop_support_pitch_gain = param_find("VT_PS_P_GAIN");
+
 
 
 	/* fetch initial parameter values */
@@ -521,7 +524,7 @@ VtolAttitudeControl::parameters_update()
 
 	param_get(_params_handles.wv_gain, &_params.wv_gain);
 	param_get(_params_handles.wv_strategy, &_params.wv_strategy);
-	param_get(_params_handles.fw_prop_support_gain, &_params.fw_prop_support_gain);
+	param_get(_params_handles.fw_prop_support_throttle, &_params.fw_prop_support_throttle);
 
 	param_get(_params_handles.front_trans_duration, &_params.front_trans_duration);
 	param_get(_params_handles.back_trans_duration, &_params.back_trans_duration);

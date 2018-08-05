@@ -209,7 +209,8 @@ private:
 		param_t wv_manual;
 		param_t wv_auto;
 		param_t fw_prop_support_on;
-		param_t fw_prop_support_gain;
+		param_t fw_prop_support_throttle;
+		param_t fw_prop_support_pitch_gain;
 	} _params_handles{};
 
 	/* for multicopters it is usual to have a non-zero idle speed of the engines

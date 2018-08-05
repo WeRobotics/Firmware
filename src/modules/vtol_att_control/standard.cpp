@@ -424,20 +424,26 @@ void Standard::fill_actuator_outputs()
 		_actuators_mc_in->control[actuator_controls_s::INDEX_THROTTLE] * _mc_throttle_weight;
 
 
-	// add fw_prop_support_gain throttle to the MC output in order to support fw flight.
-	// we map fw_prop_support_on -> Tuning PARAM1 -> Channel 8, fw_prop_support_gain -> Tuning PARAM2 -> Channel 12
+	// add fw_prop_support_throttle throttle to the MC output in order to support fw flight.
+	// we map fw_prop_support_on -> Tuning PARAM1 -> Channel 8, fw_prop_support_throttle -> Tuning PARAM2 -> Channel 12
 	if (_vtol_schedule.flight_mode !=
 	    MC_MODE) {
 		if (_params->fw_prop_support_on > FLT_EPSILON) {
 			_actuators_out_0->control[actuator_controls_s::INDEX_THROTTLE] =
-				_actuators_mc_in->control[actuator_controls_s::INDEX_THROTTLE] * _mc_throttle_weight + _params->fw_prop_support_gain;
+				_actuators_mc_in->control[actuator_controls_s::INDEX_THROTTLE] * _mc_throttle_weight +
+				_params->fw_prop_support_throttle;
 			// PX4_WARN("set FW prop support");
 
+			// first try: just use weakened version of fw control on mc.
+			_actuators_out_0->control[actuator_controls_s::INDEX_PITCH] =
+				_actuators_mc_in->control[actuator_controls_s::INDEX_PITCH] * _mc_pitch_weight + _params->fw_prop_support_throttle *
+				_actuators_fw_in->control[actuator_controls_s::INDEX_PITCH] * _params->fw_prop_support_pitch_gain;
+			// TODO: maybe limit it
 		}
 	}
 
 	// char buffer[32];
-	// sprintf(buffer, "on = %f, gain = %f", (double)_params->fw_prop_support_on*100, (double)_params->fw_prop_support_gain * 100);
+	// sprintf(buffer, "on = %f, gain = %f", (double)_params->fw_prop_support_on*100, (double)_params->fw_prop_support_throttle * 100);
 	// PX4_WARN(buffer);
 
 

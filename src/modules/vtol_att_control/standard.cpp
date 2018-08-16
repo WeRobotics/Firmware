@@ -439,12 +439,21 @@ void Standard::fill_actuator_outputs()
 				_actuators_mc_in->control[actuator_controls_s::INDEX_PITCH] * _mc_pitch_weight + _params->fw_prop_support_throttle *
 				_actuators_fw_in->control[actuator_controls_s::INDEX_PITCH] * _params->fw_prop_support_pitch_gain;
 			// TODO: maybe limit it
+			// char buffer[64];
+			// sprintf(buffer, "gain = %f", (double)_params->fw_prop_support_pitch_gain);
+			// PX4_WARN(buffer);
+
+			// if (_params->fw_prop_support_pitch_gain > 0.5){
+			// 	PX4_WARN("larger .5");
+			// }
+			// if (_params->fw_prop_support_pitch_gain < 0.5){
+			// 	PX4_WARN("smaller .5");
+			// }
+
 		}
 	}
 
-	// char buffer[32];
-	// sprintf(buffer, "on = %f, gain = %f", (double)_params->fw_prop_support_on*100, (double)_params->fw_prop_support_throttle * 100);
-	// PX4_WARN(buffer);
+
 
 
 	// fixed wing controls

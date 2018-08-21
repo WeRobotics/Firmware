@@ -72,7 +72,8 @@ struct Params {
 	int32_t wv_strategy;
 	float fw_prop_support_on;
 	float fw_prop_support_throttle;
-	float fw_prop_support_pitch_gain;
+	float fw_prop_support_ctrl_gain_p;
+	float fw_prop_support_ctrl_gain_r;
 
 	float front_trans_duration;
 	float back_trans_duration;

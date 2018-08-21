@@ -437,16 +437,27 @@ void Standard::fill_actuator_outputs()
 			// first try: just use weakened version of fw control on mc.
 			_actuators_out_0->control[actuator_controls_s::INDEX_PITCH] =
 				_actuators_mc_in->control[actuator_controls_s::INDEX_PITCH] * _mc_pitch_weight + _params->fw_prop_support_throttle *
-				_actuators_fw_in->control[actuator_controls_s::INDEX_PITCH] * _params->fw_prop_support_pitch_gain;
+				_actuators_fw_in->control[actuator_controls_s::INDEX_PITCH] * _params->fw_prop_support_ctrl_gain_p;
+
+			// first try: just use weakened version of fw control on mc.
+			_actuators_out_0->control[actuator_controls_s::INDEX_ROLL] =
+				_actuators_mc_in->control[actuator_controls_s::INDEX_ROLL] * _mc_roll_weight + _params->fw_prop_support_throttle *
+				_actuators_fw_in->control[actuator_controls_s::INDEX_ROLL] * _params->fw_prop_support_ctrl_gain_r;
+
+			// first try: just use weakened version of fw control on mc.
+			// _actuators_out_0->control[actuator_controls_s::INDEX_YAW] =
+			// 	_actuators_mc_in->control[actuator_controls_s::INDEX_YAW] * _mc_yaw_weight + _params->fw_prop_support_throttle *
+			// 	_actuators_fw_in->control[actuator_controls_s::INDEX_YAW] * _params->fw_prop_support_ctrl_gain;
+
 			// TODO: maybe limit it
 			// char buffer[64];
-			// sprintf(buffer, "gain = %f", (double)_params->fw_prop_support_pitch_gain);
+			// sprintf(buffer, "gain = %f", (double)_params->fw_prop_support_ctrl_gain);
 			// PX4_WARN(buffer);
 
-			// if (_params->fw_prop_support_pitch_gain > 0.5){
+			// if (_params->fw_prop_support_ctrl_gain > 0.5){
 			// 	PX4_WARN("larger .5");
 			// }
-			// if (_params->fw_prop_support_pitch_gain < 0.5){
+			// if (_params->fw_prop_support_ctrl_gain < 0.5){
 			// 	PX4_WARN("smaller .5");
 			// }
 
